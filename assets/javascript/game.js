@@ -1,29 +1,33 @@
 
-
-var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+// declare variables 
+var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var wins = 0;
 var losses = 0;
 var guessesLeft = 10;
 var guessesSoFar = [];
+var userGuess = "";
+var computerChoices = "";
 
-var computerGuess = computerChoices[Math.floor(Math.random() *computerChoices.length)];
-  console.log(computerGuess);
+// start of functions 
 
-document.onkeydown = function(event) {
-  var userGuess = event.key;
-    addLetter();
+function computerGuess() {
+  return computerChoices = letters[Math.floor(Math.random() *letters.length)];
 }
 
-function addLetter () {
+function resetAll() {
+    guessesLeft=10;
+    guessesSoFar=[];
+    computerGuess();
+}
 
-  var repeatGuess = lettersGuessed.some(function(item){
-      return item === usersKeypress;
-  })
+computerGuess();
 
+document.onkeyup = function (event) {
+    
+    var userGuess = event.key.toLowerCase();
+      console.log("Guesses So Far: " + userGuess);
   
- 
-   
-      if(userGuess === computerGuess){
+    if(userGuess === computerChoices) {
       wins++;
       }
       else{
@@ -32,13 +36,15 @@ function addLetter () {
 
       if(guessesLeft === 0){
       losses++;
+      guessesSoFar.push(userGuess);
+        console.log(guessesSoFar);
+      resetAll();
       }
 
 
-document.getElementById("wins").innerHTML = "Wins: " + wins;
-document.getElementById("losses").innerHTML = "Losses: " + losses;
-document.getElementById("guessesLeft").innerHTML = "Guesses Left: " + guessesLeft;
-document.getElementById("guessesSoFar").innerHTML = "Your Guesses so far: " + guessesSoFar;
+      document.getElementById("wins-text").innerHTML = "Wins: " + wins;
+      document.getElementById("losses-text").innerHTML = "Losses: " + losses;
+      document.getElementById("guessesLeft-text").innerHTML = "Guesses Left: " + guessesLeft;
+      document.getElementById("guessesSoFar-text").innerHTML = "Your Guesses So Far: " + guessesSoFar;
+  };
 
-};
-}
